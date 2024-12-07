@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Payroll - Assignment 4</title>
+    <link rel="icon" type="image/x-icon" href="assetsA4/favicon.ico" />
+  
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    
+    <link href="stylesA4.css" rel="stylesheet" />
+    <style>
+        .payroll-container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .payroll-entry {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .payroll-entry input {
+            flex: 1 1 12%;
+            min-width: 100px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .payroll-entry input[readonly] {
+            background-color: #f8f8f8;
+            border-color: #ddd;
+        }
+
+        .payroll-entry button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .payroll-entry button:hover {
+            background-color: darkred;
+        }
+
+        @media (max-width: 600px) {
+            .payroll-entry {
+                flex-direction: column;
+            }
+
+            .payroll-entry input {
+                flex: 1 1 100%;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .delete-input {
+            margin: 20px 0;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .delete-input button {
+            background-color: #ff6347;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .delete-input button:hover {
+            background-color: darkred;
+        }
+
+        .clear-all-button {
+            margin-top: 20px;
+            background-color: #ff6347;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .clear-all-button:hover {
+            background-color: darkred;
+        }
+
+        .payroll-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+   
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html">Home Page</a>
+            <button style="color: black;" class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+            </div>
+        </div>
+    </nav>
+
+   
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <h2 class="mx-auto my-0 text-uppercase" style="color:white;">Simple Payroll</h2>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Thristan Aviv Torrubia</h2>
+                    <a class="btn btn-primary" style="background-color: white; color:black;" href="#payroll-section">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+    <section id="payroll-section" class="payroll-container">
+        <h2 class="text-center">Simple Payroll</h2>
+        <div class="text-box-container">
+            <table class="single-line-table">
+                <thead>
+                    <tr>
+                        <th class="col-line">Line no.</th>
+                        <th class="col-name">Name</th>
+                        <th class="col-name">Days worked</th>
+                        <th class="col-name">Daily Rate</th>
+                        <th class="col-days">Gross Pay</th>
+                        <th class="col-rate">Deduction</th>
+                        <th class="col-rate">Net Pay</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        
+        
+
+        
+            
+
+        <div id="payroll-list">
+            
+        </div>
+        <button class="btn btn-primary mt-3" style="background-color: black;" onclick="addPayrollEntry()">Add New Line</button>
+        
+        
+        
+        <div class="delete-input">
+            <button style="background-color: black; border-radius: 7%;" onclick="deleteSpecificLine()">Delete Line</button>
+            <input type="number" id="delete-line-number" placeholder="Enter Line Number to Delete" min="1">
+        </div>
+
+       
+        <button class="clear-all-button" style="background-color: black; border-radius: 7%;" onclick="clearAllEntries()">Clear All</button>
+        
+    </section>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let lineCounter = 1;
+
+        function addPayrollEntry() {
+            const payrollList = document.getElementById('payroll-list');
+
+            const payrollEntry = document.createElement('div');
+            payrollEntry.classList.add('payroll-entry');
+            payrollEntry.innerHTML = `
+                <input type="text" value="Line ${lineCounter}" readonly>
+                <input type="text" placeholder="Employee Name">
+                <input type="number" placeholder="Days Worked" min="0">
+                <input type="number" placeholder="Daily Rate" min="0">
+                <input type="number" placeholder="Gross Pay" class="hidden" readonly>
+                <input type="number" placeholder="Deduction" min="0">
+                <input type="number" placeholder="Net Pay" class="hidden" readonly>
+                <button style="background-color: black; border-radius: 7%;" onclick="createPayrollEntry(this)">Create</button>
+            `;
+
+            payrollList.appendChild(payrollEntry);
+            lineCounter++;
+        }
+
+        function createPayrollEntry(button) {
+    const entry = button.parentElement;
+    const daysWorked = parseFloat(entry.children[2].value) || 0;
+    const dailyRate = parseFloat(entry.children[3].value) || 0;
+    const deduction = parseFloat(entry.children[5].value) || 0;
+
+    if (daysWorked > 0 && dailyRate > 0) {
+        const grossPay = daysWorked * dailyRate;
+        const netPay = grossPay - deduction;
+
+       
+        entry.children[4].classList.remove('hidden'); 
+        entry.children[6].classList.remove('hidden'); 
+        entry.children[4].value = grossPay.toFixed(2);
+        entry.children[6].value = netPay.toFixed(2);
+
+        
+        entry.children[1].disabled = true;
+        entry.children[2].disabled = true;
+        entry.children[3].disabled = true;
+        entry.children[5].disabled = true;
+        
+        
+        button.style.display = 'none';
+    }
+}
+
+
+        function updateLineNumbers() {
+            const entries = document.querySelectorAll('.payroll-entry');
+            entries.forEach((entry, index) => {
+                entry.querySelector('input[type="text"]').value = `Line ${index + 1}`;
+            });
+            lineCounter = entries.length + 1;
+        }
+
+        function deleteSpecificLine() {
+            const lineNumber = document.getElementById('delete-line-number').value;
+            const payrollList = document.getElementById('payroll-list');
+            const entry = payrollList.children[lineNumber - 1];
+
+            if (entry) {
+                entry.remove();
+                updateLineNumbers();
+            } else {
+                alert('Line number does not exist!');
+            }
+        }
+        function dlgConfirm(message) {
+    return new Promise((resolve) => {
+        // Create a custom dialog box
+        const dialog = document.createElement('div');
+        dialog.style.position = 'fixed';
+        dialog.style.top = '0';
+        dialog.style.left = '0';
+        dialog.style.width = '100vw';
+        dialog.style.height = '100vh';
+        dialog.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        dialog.style.display = 'flex';
+        dialog.style.justifyContent = 'center';
+        dialog.style.alignItems = 'center';
+        dialog.style.zIndex = '9999';
+
+        const box = document.createElement('div');
+        box.style.backgroundColor = 'white';
+        box.style.padding = '20px';
+        box.style.borderRadius = '8px';
+        box.style.textAlign = 'center';
+        box.innerHTML = `
+            <p>${message}</p>
+            <button id="confirm-Yes" style="padding: 10px 20px; margin: 5px;">Yes</button>
+            <button id="confirm-cancel" style="padding: 10px 20px; margin: 5px;">Cancel</button>
+        `;
+        dialog.appendChild(box);
+        document.body.appendChild(dialog);
+
+        document.getElementById('confirm-Yes').addEventListener('click', () => {
+            document.body.removeChild(dialog);
+            resolve(true);
+        });
+
+        document.getElementById('confirm-cancel').addEventListener('click', () => {
+            document.body.removeChild(dialog);
+            resolve(false);
+        });
+    });
+}
+
+        function clearAllEntries() {
+    dlgConfirm("Are you sure?")
+        .then((result1) => {
+            if (result1) {
+                dlgConfirm("Are you really sure?")
+                    .then((result2) => {
+                        if (result2) {
+                            document.getElementById('payroll-list').innerHTML = '';
+                            lineCounter = 1;
+                        }
+                    });
+            }
+        });
+}
+    </script>
+</body>
+
+</html>

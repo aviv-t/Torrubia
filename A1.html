@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Celsius to Fahrenheit Converter</title>
+
+    <link rel="icon" type="image/x-icon" href="assetsA1/faviconA1.ico" />
+ 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+
+    <link href="stylesA1.css" rel="stylesheet" />
+</head>
+
+<body>
+   
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" style="font: bolder; font-size: large;">Home Page</a>
+            
+
+        </div>
+    </nav>
+   
+    <header class="masthead">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                       
+                        <h1 class="mb-5">Celsius to Fahrenheit and Vice Versa</h1>
+                        
+                        <form id="convertForm">
+                           
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <input class="form-control form-control-lg" id="celsiusInput" type="number" placeholder="Enter Celsius" />
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary btn-lg" style="background-color: black;" type="button" onclick="convertToFahrenheit()">
+                                        Convert to Fahrenheit
+                                    </button>
+                                </div>
+                            </div>
+                          
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <input class="form-control form-control-lg" id="fahrenheitInput" type="number" placeholder="Enter Fahrenheit" />
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary btn-lg" style="background-color: black;" type="button" onclick="convertToCelsius()">
+                                        Convert to Celsius
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control form-control-lg" id="resultOutput" type="text" placeholder="Result" readonly />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        function convertToFahrenheit() {
+            const celsius = parseFloat(document.getElementById('celsiusInput').value);
+            if (isNaN(celsius)) {
+                document.getElementById('resultOutput').value = 'Please enter a valid number.';
+                return;
+            }
+            const fahrenheit = (celsius * 9 / 5) + 32;
+            document.getElementById('resultOutput').value = `${celsius}°C is ${fahrenheit.toFixed(2)}°F.`;
+        }
+
+        function convertToCelsius() {
+            const fahrenheit = parseFloat(document.getElementById('fahrenheitInput').value);
+            if (isNaN(fahrenheit)) {
+                document.getElementById('resultOutput').value = 'Please enter a valid number.';
+                return;
+            }
+            const celsius = (fahrenheit - 32) * 5 / 9;
+            document.getElementById('resultOutput').value = `${fahrenheit}°F is ${celsius.toFixed(2)}°C.`;
+        }
+    </script>
+</body>
+
+</html>

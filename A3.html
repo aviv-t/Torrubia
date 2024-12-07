@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>One Page Wonder - Start Bootstrap Template</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+
+    <link href="stylesA3.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container px-5">
+            <a class="navbar-brand" href="index.html">Home Page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <header class="masthead text-center text-white" style="background-image: url('01A3.jpg'); background-size: cover; background-position: center;">
+        <div class="masthead-content">
+            <div class="container px-5">
+                <h1 class="masthead-heading mb-0">N</h1>
+                <h2 class="masthead-subheading mb-0">While, Do-while, For</h2>
+                <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll" style="background-color: white; color: black; border-color:white;">Start</a>
+            </div>
+        </div>
+    </header>
+
+
+    <section id="scroll" class="bg-light py-5">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Solve for N</h2>
+                <p class="text-muted">Enter a target sum and select a method to solve for N.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <label for="target">Enter Target Sum:</label>
+                    <input type="number" id="target" class="form-control mb-3" placeholder="Sum" />
+
+                    <label for="method">Select Method:</label>
+                    <select id="method" class="form-control mb-3">
+                        <option value="while">While Loop</option>
+                        <option value="for">For Loop</option>
+                        <option value="do-while">Do-While Loop</option>
+                    </select>
+
+                    <button class="btn btn-primary btn-block" style="background-color: black; color:white; border-color: white;" onclick="solveUsingSelectedLoop()">Calculate N</button>
+
+                    <div class="mt-4">
+                        <h4>Result</h4>
+                        <p>N = <span id="result"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function solveUsingSelectedLoop() {
+            const target = document.getElementById("target").value * 1; 
+            const method = document.getElementById("method").value; 
+            let sum = 0;
+            let n = 0;
+
+            if (method === "while") {
+
+                while (sum < target) {
+                    n++;
+                    sum += n;
+                }
+            } else if (method === "for") {
+  
+                for (let i = 1; sum < target; i++) {
+                    n = i;
+                    sum += i;
+                }
+            } else if (method === "do-while") {
+          
+                do {
+                    n++;
+                    sum += n;
+                } while (sum < target);
+            }
+
+       
+            document.getElementById("result").innerText = n;
+        }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

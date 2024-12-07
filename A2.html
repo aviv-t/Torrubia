@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Assignment 2 - Income Tax Calculator</title>
+
+    <link rel="icon" type="image/x-icon" href="assetsA2/favicon.ico" />
+
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+
+    <link href="stylesA2.css" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" style="color: white;">Home Page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#calculator">Tax Calculator</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <header class="masthead">
+        <div class="container">
+            <div class="masthead-subheading">Thristan Aviv's</div>
+            <div class="masthead-heading text-uppercase">Income Tax Calculator</div>
+            <a class="btn btn-primary btn-xl text-uppercase" style="background-color:white; color: black; border: black;" href="#calculator">Get Started</a>
+        </div>
+    </header>
+
+
+    <section id="calculator" class="bg-light py-5">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Income Tax Calculator</h2>
+                
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <label for="income">Annual Income (PHP):</label>
+                    <input type="number" id="income" class="form-control mb-3" placeholder="Enter your income" />
+                    <button class="btn btn-primary btn-block" onclick="computeTax()" style="background-color: black; color: white; border: black;">Compute Tax</button>
+                    <div class="mt-4">
+                        <h4 id="taxResult"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function computeTax() {
+            var income = document.getElementById("income").value * 1; // Convert to number
+            var tax = 0;
+
+            if (income <= 250000) {
+                tax = 0;
+            } else if (income > 250000 && income <= 400000) {
+                tax = (income - 250000) * 0.20;
+            } else if (income > 400000 && income <= 800000) {
+                tax = 30000 + (income - 400000) * 0.25;
+            } else if (income > 800000 && income <= 2000000) {
+                tax = 130000 + (income - 800000) * 0.30;
+            } else if (income > 2000000 && income <= 8000000) {
+                tax = 490000 + (income - 2000000) * 0.32;
+            } else {
+                tax = 2410000 + (income - 8000000) * 0.35;
+            }
+
+            document.getElementById("taxResult").innerHTML = "The total tax is PHP " + tax.toLocaleString('en-PH', { minimumFractionDigits: 2 });
+        }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="jsA2/scripts.js"></script>
+</body>
+
+</html>
